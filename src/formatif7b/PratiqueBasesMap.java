@@ -157,7 +157,7 @@ public class PratiqueBasesMap {
      * @param args
      */
     public static void main(String args[]) {
-
+        System.out.printf("--------------/ Formatif Map /--------------");
         //Utilisez et vérifiez toutes les méthodes que vous avez programmées.
 
     }
