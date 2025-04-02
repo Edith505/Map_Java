@@ -5,14 +5,13 @@ import java.util.*;
 public class PratiqueBasesMap {
     HashMap<String, String> map;
 
-
     /**
      * <font color="green">très facile</font>
      * Instancie l'attribut map de la classe
      */
     public PratiqueBasesMap() {
         // TODO 1
-
+        map = new HashMap<>();
         remplir();
     }
 
@@ -22,17 +21,21 @@ public class PratiqueBasesMap {
      */
     private void remplir() {
         // TODO 2
-
-
+        map.put("France", "Paris");
+        map.put("Madagascar", "Tana");
+        map.put("Canada", "Ottawa");
+        map.put("Chine", "Hong Kong");
+        map.put("Maurice", "Port Luis");
+        map.put("Amerique", "New York");
     }
 
     /**
      * <font color="green">très facile</font>
-     * Remplacez la valeur contenu dans la map par la valeur reçue uniquement si ila clé est déjà dans la map
+     * Remplacez la valeur contenu dans la map par la valeur reçue uniquement si la clé est déjà dans la map
      */
     public void remplacer(String cle, String val) {
         // TODO 3
-
+        map.replace(cle, val);
     }
 
     /**
@@ -43,8 +46,7 @@ public class PratiqueBasesMap {
      */
     public String ajouteNouvelle(String cle, String nouvelleValeur) {
         // TODO 4
-
-        return null;
+        return map.putIfAbsent(cle, nouvelleValeur);
     }
 
     @Override
@@ -55,8 +57,7 @@ public class PratiqueBasesMap {
      */
     public String toString() {
         // TODO 5
-
-        return null;
+        return map.toString();
     }
 
     /**
@@ -67,9 +68,7 @@ public class PratiqueBasesMap {
      */
     public String trouverValeur(String cle) {
         // TODO 6
-
-
-        return null;
+        return map.get(cle);
     }
 
     /**
@@ -82,9 +81,7 @@ public class PratiqueBasesMap {
         // TODO 7
         // supprimer la valeur associé à la clé directement de la map
         // renvoie la valeur associé à la clé ou null si la clé est absente
-
-
-        return null;
+        return map.remove(cle);
     }
 
     /**
@@ -93,8 +90,8 @@ public class PratiqueBasesMap {
      */
     public void supprimerValeur(String valeur) {
         // TODO 8
-
-
+        Collection<String> value = map.values();
+        value.remove(valeur);
     }
 
     /**
@@ -103,8 +100,7 @@ public class PratiqueBasesMap {
      */
     public void ajouteTout(Map<String, String> nouvellesCles) {
         // TODO 9
-
-
+        map.putAll(nouvellesCles);
     }
 
 
@@ -117,8 +113,13 @@ public class PratiqueBasesMap {
      */
     public boolean contientToutesCles(Set<String> keys) {
         // TODO 10
-
-        return false;
+        boolean contient = false;
+        for (String key : keys) {
+            if (map.containsKey(key)) {
+                contient = true;
+            }
+        }
+        return contient;
     }
 
     /**
@@ -131,7 +132,9 @@ public class PratiqueBasesMap {
      */
     public void ajoutePrefixAuxValeurs(String prefix, String... clesAPrefixer) {
         // TODO 11
-
+        for (String cle : clesAPrefixer) {
+            map.replace(cle, prefix + map.get(cle));
+        }
     }
 
 
@@ -144,11 +147,15 @@ public class PratiqueBasesMap {
      */
     public Set<String> retrouveValeurCommune(String... valeurs) {
         // TODO 12
+        Set<String> commune = new HashSet<>();
+        for (String valeur : valeurs) {
+            if (map.containsValue(valeur)) {
+                commune.add(valeur);
+            }
+        }
 
-
-        return null;
+        return commune;
     }
-
 
     /**
      * Premiers exercices à faire sur les map
@@ -156,9 +163,30 @@ public class PratiqueBasesMap {
      *
      * @param args
      */
-    public static void main(String args[]) {
-        System.out.printf("--------------/ Formatif Map /--------------");
+    public static void main(String[] args) {
         //Utilisez et vérifiez toutes les méthodes que vous avez programmées.
+        PratiqueBasesMap p = new PratiqueBasesMap();
+        System.out.println("Map de base : " + p.map);
+        p.remplacer("France", "Marseille");
+        System.out.println("Remplacer : " + p.map);
+        p.ajouteNouvelle("Bresil", "San Francisco");
+        System.out.println("Ajouter : " + p.map);
+        System.out.println("La valeur : " + p.trouverValeur("Canada"));
+        p.supprimerCle("Canada");
+        System.out.println("Supprimer clé : " + p.map);
+        p.supprimerValeur("Port Luis");
+        System.out.println("Supprimer valeurs : " + p.map);
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("Italie", "Rome");
+        map2.put("Allemange", "Berlin");
+        map2.put("Afrique du Sud", "Jouanesbourg");
+        p.ajouteTout(map2);
+        System.out.println("Map de base après ajout : " + p.map);
+        Set<String> set = new HashSet<>();
+        set.add("Madagascar");
+        System.out.println("Si le set contient le cle : " + p.contientToutesCles(set));
 
     }
 }
+
+
