@@ -14,8 +14,13 @@ public class PratiqueParcoursMap {
     public void afficheToutesCles(Map<String, String> laMap) {
         // TODO 13
         // L’ensemble setDeCles contient toutes les clés de la HashMap map.
-
-
+        Set<String> setDeCles = laMap.keySet();
+        Iterator<String> it = setDeCles.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            String value = laMap.get(key);
+            System.out.println(key + " : " + value);
+        }
 
     }
 
@@ -28,9 +33,10 @@ public class PratiqueParcoursMap {
     public void afficheToutesValeurs(Map<String, String> laMap) {
         // TODO 14
         // La collection valeurs contient toutes les valeurs de la HashMap map.
-
-
-
+        Collection<String> valeurs = laMap.values();
+        for (String valeur : valeurs) {
+            System.out.println("Le : " + valeur);
+        }
     }
 
     /**
@@ -49,12 +55,11 @@ public class PratiqueParcoursMap {
      * <font color="orange">moyen</font>
      * Retire de la map reçue toutes les valeurs supérieures au seuil reçu en paramètre.
      *
-     * @param map contient les entrées à afficher
+     * @param map      contient les entrées à afficher
      * @param seuilMax la valeur la plus grande qui peut être gardée
      */
     public void retireValeursTropGrandes(Map<String, Double> map, double seuilMax) {
         // TODO 16
-
 
 
     }
@@ -94,21 +99,6 @@ public class PratiqueParcoursMap {
     public static void main(String[] args) {
 
         // Essayez vos méthodes ici
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
