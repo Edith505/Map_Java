@@ -185,6 +185,8 @@ public class PratiqueBasesMap {
         Set<String> set = new HashSet<>();
         set.add("Madagascar");
         System.out.println("Si le set contient le cle : " + p.contientToutesCles(set));
+        set.addAll(map2.keySet());
+        System.out.println(p.retrouveValeurCommune(String.valueOf(set)));
 
     }
 }
