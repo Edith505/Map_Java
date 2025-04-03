@@ -47,7 +47,11 @@ public class PratiqueParcoursMap {
      */
     public void afficheToutesClesValeurs(Map<String, String> laMap) {
         // TODO 15
-
+        for (Map.Entry<String, String> entry : laMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println(key + " : " + value);
+        }
 
     }
 
@@ -60,6 +64,12 @@ public class PratiqueParcoursMap {
      */
     public void retireValeursTropGrandes(Map<String, Double> map, double seuilMax) {
         // TODO 16
+        Iterator<Double> it = map.values().iterator();
+        while (it.hasNext()) {
+            if (it.next() > seuilMax) {
+                it.remove();
+            }
+        }
 
 
     }
@@ -75,7 +85,7 @@ public class PratiqueParcoursMap {
      */
     public Map<String, Integer> gardeValeursCommunes(Map<String, Integer> map1, Map<String, Integer> map2) {
         // TODO 17
-
+        
 
         return null;
     }
