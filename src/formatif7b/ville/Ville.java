@@ -8,22 +8,24 @@ import java.util.*;
 public class Ville {
     // Map<Integer, Maison> représente une rue avec des maison la clé est le numéro de porte
     //  Map<String, Map<Integer, Maison>> repésente un quartier avec des rues la clé est le nom de la rue
-    private Map<String, Map<String, Map<Integer, Maison>>> ville;// représente une ville avec des quartiers. La clé est le nom du quartier
+    private Map<String, Map<String, Map<Integer, Maison>>> ville = new HashMap<>();// représente une ville avec des quartiers. La clé est le nom du quartier
 
     //TODO 20 Gestion de ville
+
     /**
      * <font color="green">facile</font>
      */
     public void ajouteQuartier(String nomQuartier) {
-
+        ville.put(nomQuartier, new HashMap<>());
     }
 
     //TODO 21 Gestion de ville
+
     /**
      * <font color="green">facile</font>
      */
     public void retireQuartier(String nomQuartier) {
-
+        ville.remove(nomQuartier);
     }
 
     //TODO 22 Gestion de quartier
@@ -32,35 +34,56 @@ public class Ville {
      * <font color="orange">moyen</font>
      */
     public void ajouteRue(String nomQuartier, String nomRue) {
+        Map<String, Map<Integer, Maison>> quartier = ville.get(nomQuartier);
+        if (quartier != null) {
+            quartier.put(nomRue, new HashMap<>());
+        }
 
     }
 
     //TODO 23 Gestion de quartier
+
     /**
      * <font color="orange">moyen</font>
      */
     public boolean retireRue(String nomQuartier, String nomRue) {
-        return false;
+        return ville.get(nomQuartier).remove(nomRue) != null;
     }
 
     // TODO 24 Gestion de rue
+
     /**
      * <font color="red">Difficile</font>
      */
     public void ajouteMaison(String nomQuartier, String nomRue, int adresse, Maison nouvelleMaison) {
+        Map<String, Map<Integer, Maison>> quartier = ville.get(nomQuartier);
+        if (quartier != null) {
+            Map<Integer, Maison> rueImpliquee = quartier.get(nomRue);
+            if (rueImpliquee != null) {
+                rueImpliquee.put(adresse, nouvelleMaison);
+            }
+        }
 
     }
 
     // TODO 25 Gestion de rue
+
     /**
      * <font color="red">moyen-Difficile</font>
      */
     public void retireMaison(String nomQuartier, String nomRue, int adresse) {
-
+        Map<String, Map<Integer, Maison>> quartier = ville.get(nomQuartier);
+        if (quartier != null) {
+            Map<Integer, Maison> rueImpliquee = quartier.get(nomQuartier);
+            if (rueImpliquee != null) {
+                rueImpliquee.remove(adresse);
+            }
+        }
     }
 
 
     //TODO 26 Que vaut l'ensemble des maisons de la ville?
+
     /**
      * Calcule la valeur totale des toutes les maisons de la ville
      * <font color="red">moyen-difficile</font>
@@ -69,13 +92,20 @@ public class Ville {
      */
     public double calculValeurMaisons() {
         int retVal = 0;
-
+        for (Map<String, Map<Integer, Maison>> quartier : ville.values()) {
+            for (Map<Integer, Maison> rue : quartier.values()) {
+                for (Maison maison : rue.values()) {
+                    retVal += maison.getValeur();
+                }
+            }
+        }
 
         return retVal;
     }
 
     //TODO 27 Que vaut les maisons dans les rues du questier.
     // On ne compte pas les rues qui ne sont pas dans le quartier fourni en paramètre.
+
     /**
      * Calcule la valeur totale des toutes les maisons qui sont dans les rues et les quartiers contenus
      * dans les paramètre nomsRue et nomsQuartier.
@@ -85,12 +115,25 @@ public class Ville {
      */
     public int calculValeurMaisonsDansRuesDansQuartiers(Set<String> nomsRue, Set<String> nomsQuartier) {
         int retVal = 0;
-
+        for (String nomQuartier : nomsQuartier) {
+            Map<String, Map<Integer, Maison>> quartier = ville.get(nomQuartier);
+            if (quartier != null) {
+                for (String nomRue : nomsRue) {
+                    Map<Integer, Maison> rue = quartier.get(nomRue);
+                    if (rue != null) {
+                        for (Maison maison : rue.values()) {
+                            retVal += maison.getValeur();
+                        }
+                    }
+                }
+            }
+        }
 
         return retVal;
     }
 
     // TODO 28 Retourne l'adresse de la maison recherchée en la fabriquant à partir des clé quartier, rue et nuero de porte
+
     /**
      * Trouve la maison demandée dans toute la ville
      * <font color="red">moyen-difficile</font>
@@ -99,6 +142,15 @@ public class Ville {
      */
     public String trouveMaison(Maison maisonRecherchee) {
         String retVal = null;
+        for (Map.Entry<String, Map<String, Map<Integer, Maison>>> quartier : ville.entrySet()) {
+            for (Map.Entry<String, Map<Integer, Maison>> rue : quartier.getValue().entrySet()) {
+                for (Map.Entry<Integer, Maison> maison : rue.getValue().entrySet()) {
+                    if (maison.equals(maisonRecherchee)) {
+                        retVal = quartier.getKey() + " " + rue.getKey() + " " + maison.getKey();
+                    }
+                }
+            }
+        }
 
         return retVal;
     }
