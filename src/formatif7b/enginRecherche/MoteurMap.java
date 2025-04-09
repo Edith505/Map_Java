@@ -11,8 +11,6 @@ import formatif7b.Personne;
  */
 public class MoteurMap {
 
-
-
     public Personne getPersonneAvecNom(String nom) {
         return null;
     }
