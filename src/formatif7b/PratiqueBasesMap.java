@@ -153,7 +153,6 @@ public class PratiqueBasesMap {
                 commune.add(valeur);
             }
         }
-
         return commune;
     }
 

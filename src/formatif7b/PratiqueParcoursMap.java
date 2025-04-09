@@ -19,7 +19,7 @@ public class PratiqueParcoursMap {
         while (it.hasNext()) {
             String key = it.next();
             String value = laMap.get(key);
-            System.out.println(key + " : " + value);
+            System.out.println( "Le clé de la map : " + key);
         }
 
     }
@@ -35,7 +35,7 @@ public class PratiqueParcoursMap {
         // La collection valeurs contient toutes les valeurs de la HashMap map.
         Collection<String> valeurs = laMap.values();
         for (String valeur : valeurs) {
-            System.out.println("Le : " + valeur);
+            System.out.println("Les valeurs de la map : " + valeur);
         }
     }
 
@@ -85,9 +85,9 @@ public class PratiqueParcoursMap {
      */
     public Map<String, Integer> gardeValeursCommunes(Map<String, Integer> map1, Map<String, Integer> map2) {
         // TODO 17
-        
-
-        return null;
+        Map<String, Integer> mapCommun = new HashMap<>(map1);
+        mapCommun.values().retainAll(map2.values());
+        return mapCommun;
     }
 
     /**
@@ -101,14 +101,40 @@ public class PratiqueParcoursMap {
      */
     public Map<String, Integer> additionneValeursCorrespondantes(Map<String, Integer> map1, Map<String, Integer> map2) {
         // TODO 18
-
-        return null;
+        Map<String, Integer> sommeMap = new HashMap<>();
+        for(String key : map1.keySet()){
+            if (map2.containsKey(key)) {
+                sommeMap.put(key, map1.get(key) + map2.get(key));
+            }
+        }
+        return sommeMap;
     }
 
 
     public static void main(String[] args) {
+        PratiqueParcoursMap p = new PratiqueParcoursMap();
 
         // Essayez vos méthodes ici
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("key_1","valeur_1");
+        map1.put("key_2","valeur_2");
+        map1.put("key_3","valeur_3");
+        p.afficheToutesCles(map1);
+        p.afficheToutesValeurs(map1);
+        p.afficheToutesClesValeurs(map1);
+
+        System.out.println("------------------------");
+        Map<String, Integer> map2 = new HashMap<>();
+        map1.put("key_1", "1");
+        map1.put("key_2","2");
+        map1.put("key_3","3");
+        map1.put("key_5","5");
+        map1.put("key_4","4");
+
+        Map<String, Integer> map3 = new HashMap<>(map2);
+
+        System.out.println(p.gardeValeursCommunes(map2, map3));
+        System.out.println(p.additionneValeursCorrespondantes(map2, map3));
 
 
     }
