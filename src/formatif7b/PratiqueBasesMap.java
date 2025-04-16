@@ -13,6 +13,7 @@ public class PratiqueBasesMap {
         // TODO 1
         map = new HashMap<>();
         remplir();
+
     }
 
     /**
@@ -35,7 +36,7 @@ public class PratiqueBasesMap {
      */
     public void remplacer(String cle, String val) {
         // TODO 3
-        map.replace(cle, val);
+        map.put(cle,val);
     }
 
     /**
@@ -46,7 +47,8 @@ public class PratiqueBasesMap {
      */
     public String ajouteNouvelle(String cle, String nouvelleValeur) {
         // TODO 4
-        return map.putIfAbsent(cle, nouvelleValeur);
+
+        return  map.putIfAbsent(cle, nouvelleValeur);
     }
 
     @Override
@@ -68,6 +70,7 @@ public class PratiqueBasesMap {
      */
     public String trouverValeur(String cle) {
         // TODO 6
+
         return map.get(cle);
     }
 
@@ -81,6 +84,7 @@ public class PratiqueBasesMap {
         // TODO 7
         // supprimer la valeur associé à la clé directement de la map
         // renvoie la valeur associé à la clé ou null si la clé est absente
+
         return map.remove(cle);
     }
 
@@ -90,8 +94,8 @@ public class PratiqueBasesMap {
      */
     public void supprimerValeur(String valeur) {
         // TODO 8
-        Collection<String> value = map.values();
-        value.remove(valeur);
+        Collection<String> valeurs =  map.values();
+        valeurs.remove(valeur);
     }
 
     /**
@@ -114,12 +118,10 @@ public class PratiqueBasesMap {
     public boolean contientToutesCles(Set<String> keys) {
         // TODO 10
         boolean contient = false;
-        for (String key : keys) {
-            if (map.containsKey(key)) {
-                contient = true;
-            }
+        if(map.containsKey(keys)){
+            contient =  true;
         }
-        return contient;
+       return contient;
     }
 
     /**
@@ -132,9 +134,10 @@ public class PratiqueBasesMap {
      */
     public void ajoutePrefixAuxValeurs(String prefix, String... clesAPrefixer) {
         // TODO 11
-        for (String cle : clesAPrefixer) {
+        for(String cle : clesAPrefixer){
             map.replace(cle, prefix + map.get(cle));
         }
+
     }
 
 
@@ -148,11 +151,12 @@ public class PratiqueBasesMap {
     public Set<String> retrouveValeurCommune(String... valeurs) {
         // TODO 12
         Set<String> commune = new HashSet<>();
-        for (String valeur : valeurs) {
-            if (map.containsValue(valeur)) {
-                commune.add(valeur);
+        for(String val : valeurs){
+            if(map.containsValue(val)){
+                commune.add(val);
             }
         }
+
         return commune;
     }
 
